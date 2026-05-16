@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <script>try { var t = localStorage.getItem('portfolio-theme'); if (t) document.documentElement.setAttribute('data-theme', t); } catch (e) { }</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Flutter Developer portfolio — mobile apps, Firebase, GetX, Provider, REST APIs, clean architecture.">
+  <meta property="og:title" content="Abhishek Verma | Flutter Developer">
+  <meta property="og:description"
+    content="Flutter Developer from Lucknow, India — building scalable cross-platform mobile apps.">
+  <meta property="og:type" content="website">
+  <title>Abhishek Verma | Flutter Developer</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/sections.css">
+  <style>
+    .spin {
+      animation: spin 1s linear infinite
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    /* FIX: Project cards rendered dynamically — disable ALL animations/transitions
+   that could leave them at opacity:0. Show immediately, hover via transition. */
+    #projects-grid .project-card,
+    #projects-grid .project-card.reveal,
+    #projects-grid .project-card.reveal.visible {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+      transition: border-color 250ms, box-shadow 250ms, transform 250ms !important;
+    }
+
+    #projects-grid .project-card:hover {
+      transform: translateY(-6px) !important;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, .45), 0 0 0 1px rgba(79, 142, 247, .35) !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="global-bg"></div>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="loader">
+      <div class="loader-logo">AV.</div>
+      <div class="loader-bar">
+        <div class="loader-bar-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container navbar-inner">
+      <a href="#hero" class="nav-logo" aria-label="Abhishek Verma home">
+        <div class="nav-logo-mark">AV</div>
+        <span class="nav-logo-text">Abhishek Verma</span>
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#experience" class="nav-link">Experience</a></li>
+        <li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button id="theme-toggle" aria-label="Toggle dark/light mode">
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+        </button>
+        <a href="#contact" class="btn btn-primary nav-cta">Let's Talk</a>
+        <button id="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav -->
+  <div id="mobile-nav" aria-hidden="true">
+    <a href="#about" class="mobile-nav-link">About</a>
+    <a href="#skills" class="mobile-nav-link">Skills</a>
+    <a href="#projects" class="mobile-nav-link">Projects</a>
+    <a href="#experience" class="mobile-nav-link">Experience</a>
+    <a href="#services" class="mobile-nav-link">Services</a>
+    <a href="#contact" class="mobile-nav-link">Contact</a>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero" class="section hero-premium" aria-label="Hero">
+    <div class="container hero-container">
+      <!-- Left: Text -->
+      <div class="hero-content">
+        <div class="hero-badge hero-content-animate">
+          <span class="dot"></span>
+          Available for new opportunities
+        </div>
+        <h1 class="hero-title hero-content-animate">
+          Crafting <span class="gradient-text">Exceptional</span><br>Mobile Experiences.
+        </h1>
+        <p class="hero-tagline hero-content-animate">
+          I'm <strong>Abhishek Verma</strong>, a Flutter Engineer specializing in high-performance cross-platform apps,
+          fluid animations, and clean scalable architecture.
+        </p>
+        <div class="hero-cta-group hero-content-animate">
+          <a href="#projects" class="btn btn-primary btn-lg" id="cta-projects">
+            Explore Work
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </a>
+          <a href="assets/ABHISHEK_VERMA.pdf" download class="btn btn-outline btn-lg" id="cta-resume">View Resume</a>
+        </div>
+        <div class="hero-tech-stack hero-content-animate">
+          <span class="tech-icon">Flutter</span><span class="tech-divider">/</span>
+          <span class="tech-icon">Dart</span><span class="tech-divider">/</span>
+          <span class="tech-icon">Firebase</span><span class="tech-divider">/</span>
+          <span class="tech-icon">GetX</span><span class="tech-divider">/</span>
+          <span class="tech-icon">REST API</span>
+        </div>
+      </div>
+      <!-- Right: Floating Visual -->
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-orb"></div>
+        <!-- Widget 1: Status -->
+        <div class="hero-widget hero-widget-1">
+          <div class="hw-label">Status</div>
+          <div class="hw-value"><span class="hw-dot hw-dot-green"></span>Open to Work</div>
+          <div class="hw-sub">Remote &amp; On-site</div>
+        </div>
+        <!-- Widget 2: Stats -->
+        <div class="hero-widget hero-widget-2">
+          <div class="hw-label">At a Glance</div>
+          <div class="hw-stat-row">
+            <div class="hw-stat-col">
+              <div class="hw-stat-num">1+</div>
+              <div class="hw-stat-lbl">Yrs Exp</div>
+            </div>
+            <div class="hw-stat-col">
+              <div class="hw-stat-num">4+</div>
+              <div class="hw-stat-lbl">Apps Built</div>
+            </div>
+            <div class="hw-stat-col">
+              <div class="hw-stat-num">2</div>
+              <div class="hw-stat-lbl">Play Store</div>
+            </div>
+          </div>
+        </div>
+        <!-- Widget 3: Skills radar -->
+        <div class="hero-widget hero-widget-3">
+          <div class="hw-label">Core Stack</div>
+          <div class="hw-bar-row">
+            <div class="hw-bar-item"><span class="hw-bar-name">Flutter</span>
+              <div class="hw-bar-track">
+                <div class="hw-bar-fill" style="width:92%"></div>
+              </div>
+            </div>
+            <div class="hw-bar-item"><span class="hw-bar-name">Firebase</span>
+              <div class="hw-bar-track">
+                <div class="hw-bar-fill" style="width:82%"></div>
+              </div>
+            </div>
+            <div class="hw-bar-item"><span class="hw-bar-name">GetX</span>
+              <div class="hw-bar-track">
+                <div class="hw-bar-fill" style="width:88%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll-indicator">
+      <div class="mouse">
+        <div class="wheel"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section" aria-label="About me">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">Who I Am</div>
+        <h2 class="section-title">About <span class="gradient-text">Me</span></h2>
+        <p class="section-subtitle">Flutter developer focused on building clean, fast, and scalable mobile apps.</p>
+      </div>
+
+      <div class="about-grid reveal">
+        <!-- Left Column: Bio -->
+        <div class="about-left">
+          <div class="about-card about-bio-card">
+            <div class="section-tag">Background</div>
+            <h3 class="about-title">Hi, I'm Abhishek.<br><span class="gradient-text">Flutter Specialist.</span></h3>
+            <p class="about-bio">
+              I build production-grade cross-platform mobile applications. My expertise spans the full mobile stack —
+              from pixel-perfect Flutter UIs to robust Firebase backends, REST API integrations, and clean state
+              management with GetX and Provider.
+            </p>
+            <div class="about-cta-row">
+              <a href="assets/resume.pdf" download class="btn btn-primary" id="about-resume-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                Download Resume
+              </a>
+              <a href="https://github.com/abhiverma9769" target="_blank" rel="noopener" class="btn btn-outline"
+                id="about-github-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+                </svg>
+                GitHub Profile
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Stats + Location -->
+        <div class="about-right">
+          <div class="about-stats-grid">
+            <div class="about-card about-stat-card">
+              <span class="about-stat-num">1+</span>
+              <span class="about-stat-label">Years<br>Experience</span>
+            </div>
+            <div class="about-card about-stat-card">
+              <span class="about-stat-num">4+</span>
+              <span class="about-stat-label">Apps<br>Shipped</span>
+            </div>
+            <div class="about-card about-stat-card">
+              <span class="about-stat-num">2</span>
+              <span class="about-stat-label">Live on<br>Play Store</span>
+            </div>
+          </div>
+          <div class="about-card about-location-card">
+            <div class="location-map">
+              <div class="pulse-marker"></div>
+            </div>
+            <div class="location-text">
+              <strong>Lucknow, India</strong>
+              <span>Open to Remote</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section" aria-label="Skills">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">What I Know</div>
+        <h2 class="section-title">Technical <span class="gradient-text">Skills</span></h2>
+        <p class="section-subtitle">Technologies and tools I use to build production-grade Flutter applications.</p>
+      </div>
+      <div class="skills-grid reveal-stagger">
+        <div class="skill-category" data-cat="core">
+          <div class="skill-category-header">
+            <span class="skill-category-icon">📱</span>
+            <span class="skill-category-title">Flutter &amp; Dart</span>
+          </div>
+          <div class="skill-pills-wrap">
+            <span class="skill-pill" data-cat="core"><span class="skill-pill-dot"></span>Flutter</span>
+            <span class="skill-pill" data-cat="core"><span class="skill-pill-dot"></span>Dart</span>
+            <span class="skill-pill" data-cat="core"><span class="skill-pill-dot"></span>Custom Widgets</span>
+            <span class="skill-pill" data-cat="core"><span class="skill-pill-dot"></span>Animations</span>
+            <span class="skill-pill" data-cat="core"><span class="skill-pill-dot"></span>Responsive UI</span>
+            <span class="skill-pill" data-cat="core"><span class="skill-pill-dot"></span>Flutter Web</span>
+          </div>
+        </div>
+        <div class="skill-category" data-cat="state">
+          <div class="skill-category-header">
+            <span class="skill-category-icon">⚙️</span>
+            <span class="skill-category-title">State Management</span>
+          </div>
+          <div class="skill-pills-wrap">
+            <span class="skill-pill" data-cat="state"><span class="skill-pill-dot"></span>GetX</span>
+            <span class="skill-pill" data-cat="state"><span class="skill-pill-dot"></span>Provider</span>
+            <span class="skill-pill" data-cat="state"><span class="skill-pill-dot"></span>BLoC</span>
+            <span class="skill-pill" data-cat="state"><span class="skill-pill-dot"></span>Riverpod</span>
+            <span class="skill-pill" data-cat="state"><span class="skill-pill-dot"></span>Rx Observables</span>
+          </div>
+        </div>
+        <div class="skill-category" data-cat="backend">
+          <div class="skill-category-header">
+            <span class="skill-category-icon">🔥</span>
+            <span class="skill-category-title">Backend &amp; APIs</span>
+          </div>
+          <div class="skill-pills-wrap">
+            <span class="skill-pill" data-cat="backend"><span class="skill-pill-dot"></span>Firebase Auth</span>
+            <span class="skill-pill" data-cat="backend"><span class="skill-pill-dot"></span>Firestore</span>
+            <span class="skill-pill" data-cat="backend"><span class="skill-pill-dot"></span>FCM</span>
+            <span class="skill-pill" data-cat="backend"><span class="skill-pill-dot"></span>REST APIs</span>
+            <span class="skill-pill" data-cat="backend"><span class="skill-pill-dot"></span>Dio / http</span>
+            <span class="skill-pill" data-cat="backend"><span class="skill-pill-dot"></span>JSON Parsing</span>
+          </div>
+        </div>
+        <div class="skill-category" data-cat="tools">
+          <div class="skill-category-header">
+            <span class="skill-category-icon">🛠️</span>
+            <span class="skill-category-title">Tools &amp; Practices</span>
+          </div>
+          <div class="skill-pills-wrap">
+            <span class="skill-pill" data-cat="tools"><span class="skill-pill-dot"></span>Git &amp; GitHub</span>
+            <span class="skill-pill" data-cat="tools"><span class="skill-pill-dot"></span>Clean Architecture</span>
+            <span class="skill-pill" data-cat="tools"><span class="skill-pill-dot"></span>MVVM</span>
+            <span class="skill-pill" data-cat="tools"><span class="skill-pill-dot"></span>Agile / Scrum</span>
+            <span class="skill-pill" data-cat="tools"><span class="skill-pill-dot"></span>Play Store Deploy</span>
+            <span class="skill-pill" data-cat="tools"><span class="skill-pill-dot"></span>Figma</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section" aria-label="Projects">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">Featured Work</div>
+        <h2 class="section-title">Selected <span class="gradient-text">Projects</span></h2>
+        <p class="section-subtitle">Real-world applications built with production-grade architecture and attention to
+          detail.</p>
+      </div>
+      <div id="projects-grid" class="projects-grid"></div>
+    </div>
+  </section>
+
+  <!-- PROJECT MODAL -->
+  <div id="project-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 class="modal-title section-title" id="modal-title-text" style="font-size:1.5rem;margin:0;"></h2>
+        <button id="modal-close" class="btn btn-outline btn-icon" aria-label="Close modal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-section">
+          <div class="modal-section-title">🎯 Problem</div>
+          <p class="modal-problem"></p>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-title">💡 Solution</div>
+          <p class="modal-solution"></p>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-title">✨ Key Features</div>
+          <div class="modal-features"></div>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-title">🛠️ Tech Stack</div>
+          <div class="modal-tech" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;"></div>
+        </div>
+      </div>
+      <div class="modal-links"></div>
+    </div>
+  </div>
+
+  <!-- ARCHITECTURE -->
+  <section id="architecture" class="section" aria-label="Architecture">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">Technical Depth</div>
+        <h2 class="section-title">App <span class="gradient-text">Architecture</span></h2>
+        <p class="section-subtitle">Clean, scalable structure following industry best practices.</p>
+      </div>
+      <div class="arch-grid">
+        <div class="arch-card reveal">
+          <div class="arch-card-title">📁 Project Structure</div>
+          <div class="code-block">
+            <span style="color:#79C0FF">lib/</span>
+            <span style="color:#C9D1D9;padding-left:1em">├── </span><span style="color:#79C0FF">core/</span>
+            <span style="color:#C9D1D9;padding-left:2em">│ ├── </span><span style="color:#A5D6FF">constants/</span>
+            <span style="color:#C9D1D9;padding-left:2em">│ ├── </span><span style="color:#A5D6FF">theme/</span>
+            <span style="color:#C9D1D9;padding-left:2em">│ └── </span><span style="color:#A5D6FF">utils/</span>
+            <span style="color:#C9D1D9;padding-left:1em">├── </span><span style="color:#79C0FF">data/</span>
+            <span style="color:#C9D1D9;padding-left:2em">│ ├── </span><span style="color:#A5D6FF">models/</span>
+            <span style="color:#C9D1D9;padding-left:2em">│ ├── </span><span style="color:#A5D6FF">repositories/</span>
+            <span style="color:#C9D1D9;padding-left:2em">│ └── </span><span style="color:#A5D6FF">services/</span>
+            <span style="color:#C9D1D9;padding-left:1em">├── </span><span style="color:#79C0FF">presentation/</span>
+            <span style="color:#C9D1D9;padding-left:2em">│ ├── </span><span style="color:#A5D6FF">controllers/</span>
+            <span style="color:#C9D1D9;padding-left:2em">│ ├── </span><span style="color:#A5D6FF">screens/</span>
+            <span style="color:#C9D1D9;padding-left:2em">│ └── </span><span style="color:#A5D6FF">widgets/</span>
+            <span style="color:#C9D1D9;padding-left:1em">└── </span><span style="color:#FFA657">main.dart</span>
+          </div>
+        </div>
+        <div class="arch-card reveal">
+          <div class="arch-card-title">⚙️ GetX State Flow</div>
+          <div class="flow-row">
+            <div class="flow-step">
+              <div class="flow-step-num">1</div>
+              <div class="flow-step-label"><strong>View</strong> — Widget triggers user action (tap, input)</div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-step-num">2</div>
+              <div class="flow-step-label"><strong>Controller</strong> — GetX controller processes logic, calls service
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-step-num">3</div>
+              <div class="flow-step-label"><strong>Service</strong> — Repository pattern fetches/mutates data</div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-step-num">4</div>
+              <div class="flow-step-label"><strong>Model</strong> — Data returned, Rx observable updated</div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-step-num">5</div>
+              <div class="flow-step-label"><strong>UI Rebuild</strong> — Obx() widget rebuilds automatically</div>
+            </div>
+          </div>
+        </div>
+        <div class="arch-card reveal" style="grid-column:1/-1;">
+          <div class="arch-card-title">🔄 API Request Flow</div>
+          <div class="flow-diagram" style="padding:1rem 0;">
+            <div class="flow-node flow-node-ui">UI Widget<br><small>User Tap</small></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node flow-node-controller">GetX Controller<br><small>Business Logic</small></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node flow-node-service">Repository<br><small>Data Layer</small></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node flow-node-api">REST / Firebase<br><small>Remote Source</small></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node flow-node-service">Model<br><small>fromJson()</small></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node flow-node-controller">Rx State<br><small>.value = data</small></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node flow-node-ui">Obx()<br><small>Auto Rebuild</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="section" aria-label="Experience">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">Work History</div>
+        <h2 class="section-title">My <span class="gradient-text">Experience</span></h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <div class="timeline-dot">💼</div>
+          <div class="timeline-content">
+            <h3 class="timeline-role">Junior Flutter Developer</h3>
+            <div class="timeline-org">Cloudemy Digital Technologies Pvt Ltd</div>
+            <div class="timeline-period">Feb 2026 – Present · Lucknow, India</div>
+            <p class="timeline-desc">
+              Developing scalable Flutter applications for enterprise clients, working on API integration and real-time
+              features. Improving app performance and UI responsiveness while following clean architecture and Agile
+              development practices.
+            </p>
+            <div class="timeline-impact">
+              <div class="impact-item">⚡ GetX Architecture</div>
+              <div class="impact-item">🔗 API Integration</div>
+              <div class="impact-item">🎨 Responsive UI</div>
+              <div class="impact-item">🏃 Agile Workflow</div>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot">🚀</div>
+          <div class="timeline-content">
+            <h3 class="timeline-role">Junior Flutter Developer</h3>
+            <div class="timeline-org">Fusion Code · Lucknow, India</div>
+            <div class="timeline-period">May 2025 – Feb 2026 · 10 months</div>
+            <p class="timeline-desc">
+              Built and deployed Flutter apps for Android &amp; iOS. Integrated REST APIs and Firebase (Auth, Firestore,
+              FCM). Improved app performance using lazy loading and delivered pixel-perfect responsive UI. Worked with
+              Git/GitHub in an Agile team workflow.
+            </p>
+            <div class="timeline-impact">
+              <div class="impact-item">📱 Android &amp; iOS Apps</div>
+              <div class="impact-item">🔥 Firebase Auth &amp; FCM</div>
+              <div class="impact-item">⚡ Lazy Loading Optimization</div>
+              <div class="impact-item">🔗 REST API Integration</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="section" aria-label="Services">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">What I Offer</div>
+        <h2 class="section-title">My <span class="gradient-text">Services</span></h2>
+        <p class="section-subtitle">End-to-end Flutter development services — from idea to Play Store.</p>
+      </div>
+      <div class="services-grid reveal-stagger">
+        <div class="service-card">
+          <div class="service-card-icon service-card-icon-bg-1">📱</div>
+          <div>
+            <div class="service-card-title">Flutter App Development</div>
+            <div class="service-card-desc">Cross-platform mobile apps for Android &amp; iOS built with production-grade
+              Flutter architecture, pixel-perfect UI, and smooth animations.</div>
+          </div>
+          <ul class="service-card-list">
+            <li class="service-card-list-item">Custom UI with Flutter widgets</li>
+            <li class="service-card-list-item">GetX / Provider state management</li>
+            <li class="service-card-list-item">Performance optimization</li>
+            <li class="service-card-list-item">Play Store deployment</li>
+          </ul>
+        </div>
+        <div class="service-card">
+          <div class="service-card-icon service-card-icon-bg-2">🔥</div>
+          <div>
+            <div class="service-card-title">Firebase Backend</div>
+            <div class="service-card-desc">Scalable backend architecture using Firebase — real-time data, secure auth,
+              push notifications, and cloud functions.</div>
+          </div>
+          <ul class="service-card-list">
+            <li class="service-card-list-item">Firebase Auth (Google, Phone, Email)</li>
+            <li class="service-card-list-item">Firestore real-time sync</li>
+            <li class="service-card-list-item">FCM push notifications</li>
+            <li class="service-card-list-item">REST API integration</li>
+          </ul>
+        </div>
+        <div class="service-card">
+          <div class="service-card-icon service-card-icon-bg-3">🎨</div>
+          <div>
+            <div class="service-card-title">UI/UX to Flutter</div>
+            <div class="service-card-desc">Converting Figma or Adobe XD designs into pixel-perfect, responsive Flutter
+              screens with smooth micro-interactions.</div>
+          </div>
+          <ul class="service-card-list">
+            <li class="service-card-list-item">Figma to Flutter conversion</li>
+            <li class="service-card-list-item">Responsive &amp; adaptive layouts</li>
+            <li class="service-card-list-item">Custom animations &amp; transitions</li>
+            <li class="service-card-list-item">Dark / Light theme support</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GITHUB REPOS -->
+  <section id="github-repos" class="section" aria-label="GitHub Repositories">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">Open Source</div>
+        <h2 class="section-title">GitHub <span class="gradient-text">Repositories</span></h2>
+        <p class="section-subtitle">Latest public repositories, loaded live from the GitHub API.</p>
+      </div>
+      <div id="repos-grid" class="repos-grid">
+        <p class="repos-loading">Loading repositories…</p>
+      </div>
+      <div style="text-align:center;margin-top:2rem;">
+        <a href="https://github.com/abhiverma9769" target="_blank" rel="noopener" class="btn btn-outline"
+          id="view-all-repos">
+          View All Repositories →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section" aria-label="Contact">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">Get In Touch</div>
+        <h2 class="section-title">Let's <span class="gradient-text">Work Together</span></h2>
+        <p class="section-subtitle">Have a project in mind? I'd love to hear about it.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="reveal reveal-left">
+          <h3 class="contact-info-title">Ready to build something <span class="gradient-text">amazing?</span></h3>
+          <p class="contact-info-desc">Whether you need a full Flutter app from scratch, Firebase backend architecture,
+            or want to improve an existing codebase — I'm here to help.</p>
+          <div class="contact-links">
+            <a href="tel:+916386955657" class="contact-link-item" id="contact-phone">
+              <div class="contact-link-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z" />
+                </svg>
+              </div>
+              <div>
+                <div class="contact-link-label">Phone</div>
+                <div class="contact-link-value">+91 6386 955 657</div>
+              </div>
+            </a>
+            <a href="mailto:abhiverma9769@gmail.com" class="contact-link-item" id="contact-email">
+              <div class="contact-link-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
+              </div>
+              <div>
+                <div class="contact-link-label">Email</div>
+                <div class="contact-link-value">abhiverma9769@gmail.com</div>
+              </div>
+            </a>
+            <a href="https://github.com/abhiverma9769" target="_blank" rel="noopener" class="contact-link-item"
+              id="contact-github">
+              <div class="contact-link-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+                </svg>
+              </div>
+              <div>
+                <div class="contact-link-label">GitHub</div>
+                <div class="contact-link-value">github.com/abhiverma9769</div>
+              </div>
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" class="contact-link-item"
+              id="contact-linkedin">
+              <div class="contact-link-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                </svg>
+              </div>
+              <div>
+                <div class="contact-link-label">LinkedIn</div>
+                <div class="contact-link-value">linkedin.com/in/abhishek-verma</div>
+              </div>
+            </a>
+          </div>
+          <div class="contact-social">
+            <a href="https://github.com/abhiverma9769" target="_blank" rel="noopener" class="social-link"
+              aria-label="GitHub">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+              </svg>
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+              </svg>
+            </a>
+            <a href="mailto:abhiverma9769@gmail.com" class="social-link" aria-label="Email">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="contact-form-card reveal">
+          <form id="contact-form" class="contact-form" action="https://formspree.io/f/mreraoop" method="POST"
+            novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="form-name">Full Name *</label>
+                <input id="form-name" name="name" type="text" class="form-input" placeholder="John Doe"
+                  autocomplete="name" required>
+                <span id="form-name-error" class="form-error"></span>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="form-email">Email *</label>
+                <input id="form-email" name="email" type="email" class="form-input" placeholder="john@example.com"
+                  autocomplete="email" required>
+                <span id="form-email-error" class="form-error"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="form-subject">Subject *</label>
+              <input id="form-subject" name="subject" type="text" class="form-input"
+                placeholder="Flutter app development" required>
+              <span id="form-subject-error" class="form-error"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="form-message">Message *</label>
+              <textarea id="form-message" name="message" class="form-textarea" rows="5"
+                placeholder="Tell me about your project…" required></textarea>
+              <span id="form-message-error" class="form-error"></span>
+            </div>
+            <button type="submit" class="btn btn-primary" id="contact-submit" style="align-self:flex-start;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="22" y1="2" x2="11" y2="13" />
+                <polygon points="22 2 15 22 11 13 2 9 22 2" />
+              </svg>
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education" class="section" style="background:var(--color-bg-primary);" aria-label="Education">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">Academic Background</div>
+        <h2 class="section-title">My <span class="gradient-text">Education</span></h2>
+      </div>
+      <div style="max-width:700px;margin:0 auto;">
+        <div class="timeline-item reveal" style="margin-bottom:0;">
+          <div class="timeline-dot">&#127891;</div>
+          <div class="timeline-content">
+            <h3 class="timeline-role">B.Tech in Computer Science &amp; Design</h3>
+            <div class="timeline-org">R R Institute of Modern Technology</div>
+            <div class="timeline-period">2021 - 2025 - Lucknow, India</div>
+            <p class="timeline-desc">Studied core CS fundamentals alongside UI/UX and design principles, providing a
+              strong technical and visual foundation for mobile app development with Flutter.</p>
+            <div class="timeline-impact">
+              <div class="impact-item">&#x1F4BB; CS Fundamentals</div>
+              <div class="impact-item">&#x1F3A8; Design Principles</div>
+              <div class="impact-item">&#x1F4CD; Lucknow, India</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer" aria-label="Footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand-name">Abhishek Verma</div>
+          <p class="footer-brand-desc">Flutter Engineer building high-performance cross-platform mobile applications.
+            Open to remote opportunities worldwide.</p>
+          <div class="footer-social">
+            <a href="https://github.com/abhiverma9769" target="_blank" rel="noopener" class="social-link"
+              aria-label="GitHub">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+              </svg>
+            </a>
+            <a href="https://linkedin.com/in/abhishek-verma" target="_blank" rel="noopener" class="social-link"
+              aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+              </svg>
+            </a>
+            <a href="mailto:abhiverma9769@gmail.com" class="social-link" aria-label="Email">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Navigation</div>
+          <nav class="footer-links-list">
+            <a href="#about" class="footer-nav-link">About</a>
+            <a href="#skills" class="footer-nav-link">Skills</a>
+            <a href="#projects" class="footer-nav-link">Projects</a>
+            <a href="#experience" class="footer-nav-link">Experience</a>
+            <a href="#services" class="footer-nav-link">Services</a>
+            <a href="#contact" class="footer-nav-link">Contact</a>
+          </nav>
+        </div>
+        <div>
+          <div class="footer-col-title">Get In Touch</div>
+          <div class="footer-contact-list">
+            <a href="mailto:abhiverma9769@gmail.com" class="footer-contact-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+              abhiverma9769@gmail.com
+            </a>
+            <a href="tel:+916386955657" class="footer-contact-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z" />
+              </svg>
+              +91 6386 955 657
+            </a>
+            <a href="https://github.com/abhiverma9769" target="_blank" rel="noopener" class="footer-contact-item">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+              </svg>
+              github.com/abhiverma9769
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 Abhishek Verma. All rights reserved.</p>
+        <p class="footer-made">Built with <span>❤️</span> &amp; Flutter passion</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll To Top -->
+  <button id="scroll-top" aria-label="Scroll to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <polyline points="18 15 12 9 6 15" />
+    </svg>
+  </button>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/projects.js"></script>
+  <script src="js/contact.js"></script>
+  <script src="js/github.js"></script>
+</body>
+
+</html>
